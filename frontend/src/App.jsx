@@ -5,39 +5,19 @@ import Register from "./pages/Register.jsx";
 import StudentDashboard from '../src/pages/StudentDashboard.jsx'
 import AdminDashboard from '../src/pages/AdminDashboard.jsx'
 import CreateEvent from "./pages/CreateEvent.jsx"
-import QRCodePage from "../src/pages/QRCodePage.jsx"
+import Navbar from "./components/Navbar.jsx";
 
 
 function App() {
   return (
     <Router>
+      <Navbar />
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route
-          path="/student/dashboard"
-          element={
-            <ProtectedRoute allowedRoles={["student"]}>
-              <StudentDashboard />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/admin/dashboard"
-          element={
-            <ProtectedRoute allowedRoles={["admin"]}>
-              <AdminDashboard />
-            </ProtectedRoute>
-          }
-        />
-       <Route
-          path="/admin/create-event"
-          element={
-            <ProtectedRoute allowedRoles={["admin"]}>
-              <CreateEvent />
-            </ProtectedRoute>
-          }
-        />
+        <Route path="/student/dashboard" element={<StudentDashboard />}/>
+        <Route path="/admin/dashboard"element={<AdminDashboard />}/>
+        <Route  path="/admin/create-event"element={<CreateEvent />}/>
       </Routes>
     </Router>
   );

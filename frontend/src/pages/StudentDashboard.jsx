@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import API from "../api";
 import QRCode from "react-qr-code";
-
+import { FaCalendarAlt, FaMapMarkerAlt, FaInfoCircle } from "react-icons/fa";
 export default function StudentDashboard() {
   const [events, setEvents] = useState([]);
   const [registered, setRegistered] = useState(null);
@@ -27,33 +27,54 @@ export default function StudentDashboard() {
   }, []);
 
   return (
-    <div className="min-h-screen p-8 bg-gray-100">
-      <h2 className="text-3xl font-bold mb-6">Upcoming Events</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {events.map((event) => (
-          <div key={event._id} className="bg-white p-4 rounded shadow space-y-2">
-            <h3 className="text-xl font-semibold">{event.title}</h3>
-            <p>{event.description}</p>
-            <p><b>Date:</b> {new Date(event.date).toLocaleDateString()}</p>
-            <p><b>Venue:</b> {event.venue}</p>
-            <button
-              className="mt-2 bg-green-600 text-white px-4 py-2 rounded"
-              onClick={() => register(event._id)}
-            >
-              Register
-            </button>
+    <div className="min-h-screen p-6 md:p-10 bg-gradient-to-br from-slate-100 to-blue-100">
+    <h2 className="text-4xl font-bold mb-8 text-blue-800">🎉 Upcoming Events</h2>
 
-            {registered === event._id && (
-              <div className="mt-4">
-                <p className="text-sm font-medium">Show this QR Code at entry:</p>
-                <div className="w-32 h-32 bg-white p-2">
-                  <QRCode value={`Event:${event._id},User:${localStorage.getItem("token")}`} />
-                </div>
-              </div>
-            )}
+    <div className="grid gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+      {events.map((event) => (
+        <div
+          key={event._id}
+          className="bg-white rounded-2xl shadow-md hover:shadow-xl transition p-6 space-y-4 border border-gray-200"
+        >
+          <h3 className="text-2xl font-semibold text-indigo-700">{event.title}</h3>
+
+          <div className="text-gray-600 space-y-1">
+            <p className="flex items-center gap-2">
+              <FaInfoCircle className="text-blue-500" /> {event.description}
+            </p>
+            <p className="flex items-center gap-2">
+              <FaCalendarAlt className="text-green-600" />
+              <b>Date:</b> {new Date(event.date).toLocaleDateString()}
+            </p>
+            <p className="flex items-center gap-2">
+              <FaMapMarkerAlt className="text-red-500" />
+              <b>Venue:</b> {event.venue}
+            </p>
           </div>
-        ))}
-      </div>
+
+          <button
+            className="mt-4 w-full bg-indigo-600 hover:bg-indigo-700 text-white py-2 rounded-lg font-medium"
+            onClick={() => register(event._id)}
+          >
+            🎟 Register
+          </button>
+
+          {registered === event._id && (
+            <div className="mt-4 text-center">
+              <p className="text-sm font-medium text-gray-700 mb-2">
+                Show this QR Code at entry
+              </p>
+              <div className="inline-block bg-white p-2 border rounded shadow">
+                <QRCode
+                  value={`Event:${event._id},User:${localStorage.getItem("token")}`}
+                  size={128}
+                />
+              </div>
+            </div>
+          )}
+        </div>
+      ))}
     </div>
+  </div>
   );
 }
