@@ -6,7 +6,7 @@ import StudentDashboard from '../src/pages/StudentDashboard.jsx'
 import AdminDashboard from '../src/pages/AdminDashboard.jsx'
 import CreateEvent from "./pages/CreateEvent.jsx"
 import Navbar from "./components/Navbar.jsx";
-
+import AdminQRScanner from "../src/pages/AdminQRScanner.jsx"
 
 function App() {
   return (
@@ -18,6 +18,7 @@ function App() {
         <Route path="/student/dashboard" element={<StudentDashboard />}/>
         <Route path="/admin/dashboard"element={<AdminDashboard />}/>
         <Route  path="/admin/create-event"element={<CreateEvent />}/>
+        <Route path="/admin/checkin" element={<AdminQRScanner />} />
       </Routes>
     </Router>
   );

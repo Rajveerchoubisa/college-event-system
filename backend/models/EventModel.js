@@ -7,7 +7,7 @@ const eventSchema = new mongoose.Schema({
         venue: String,
         createdBy: {type:mongoose.Schema.Types.ObjectId , ref: 'User'},
         checkIns: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
-        registrations: [
+        registered: [
             {
               type: mongoose.Schema.Types.ObjectId,
               ref: "User",
