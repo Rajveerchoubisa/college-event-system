@@ -10,16 +10,20 @@ export default function Login() {
   const navigate = useNavigate();
   const { login } = useAuthContext();
 
-  
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const res = await API.post("/auth/login", { email, password });
-      localStorage.setItem("token", res.data.token);
-      localStorage.setItem("role", res.data.user.role);
 
-      login({ role: res.data.role });
+      const userData = {
+        email: res.data.user.email,
+        role: res.data.user.role,
+      };
+
+      // Store token & user in localStorage and context
+      localStorage.setItem("token", res.data.token);
+      localStorage.setItem("user", JSON.stringify(userData));
+      login(userData); // use context
 
       alert("Login successful!");
 
@@ -30,6 +34,7 @@ export default function Login() {
       }
     } catch (err) {
       alert("Login failed.");
+      console.error(err);
     }
   };
 
