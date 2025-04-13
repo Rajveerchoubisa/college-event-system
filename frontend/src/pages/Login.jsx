@@ -25,6 +25,8 @@ export default function Login() {
       // Store token & user in localStorage and context
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("user", JSON.stringify(userData));
+      localStorage.setItem("userId", res.data.user._id); 
+    
   
 
       if (res.data.user.role === "admin") {

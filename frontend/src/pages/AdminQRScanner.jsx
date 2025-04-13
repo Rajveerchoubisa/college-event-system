@@ -33,9 +33,12 @@ export default function AdminCheckIn() {
       <div className="flex flex-col items-center gap-4">
         <div className="w-80 h-80 bg-white shadow-lg rounded-xl overflow-hidden">
           <QrReader
-            onResult={handleScan}
-            constraints={{ facingMode: "environment" }}
-            style={{ width: "100%" }}
+             onResult={handleScan}
+             constraints={{ facingMode: "environment" }}
+             videoContainerStyle={{ width: "100%", height: "100%" }}
+             containerStyle={{ width: "100%", height: "100%" }}
+             videoStyle={{ width: "100%", height: "100%" }}
+             style={{ width: "100%", height: "100%" }}
           />
         </div>
 

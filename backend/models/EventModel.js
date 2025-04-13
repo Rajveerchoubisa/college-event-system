@@ -3,7 +3,10 @@ import mongoose, { mongo } from "mongoose";
 const eventSchema = new mongoose.Schema({
         title: String,
         description: String,
-        data: Date,
+        date: {
+          type: Date,  
+          required: true,
+        },
         venue: String,
         createdBy: {type:mongoose.Schema.Types.ObjectId , ref: 'User'},
         checkIns: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],

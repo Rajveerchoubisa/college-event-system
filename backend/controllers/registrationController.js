@@ -8,15 +8,14 @@ export const registerForEvent = async (req, res) => {
    const userId = req.user.id;
 
   try {
-    // Generate unique QR data (can be encrypted or ID-based)
-    // const qrData = `${req.user.id}-${eventId}`;
-    // const qrCode = await QRCode.toDataURL(qrData);
+
 
     const event = await Event.findById(eventId);
     if(!event) return res.status(404).json({ message: "Event not found" });
 
     if (event.registered.includes(userId)) {
       return res.status(400).json({ message: "Already registered" });
+
     }
 
     event.registered.push(userId);
@@ -46,8 +45,12 @@ export const registerForEvent = async (req, res) => {
 
 export const getUserRegistrations = async (req, res) => {
   try {
-    const regs = await Registration.find({ userId: req.user.id }).populate('event');
-    res.status(200).json(regs);
+    const registration = await Registration.find({ userId: req.user.id }).populate('eventId');
+
+    console.log("Registrations:", registration);
+
+    
+
   } catch (err) {
     res.status(500).json({ error: 'Failed to fetch registrations' });
   }

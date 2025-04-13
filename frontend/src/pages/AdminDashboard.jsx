@@ -21,7 +21,8 @@ export default function AdminDashboard() {
 
           <button
             className="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white py-4 px-6 rounded-xl shadow-lg transition duration-300 transform hover:scale-105"
-            onClick={() => alert("View Events feature coming soon")}
+            onClick={() => navigate("/admin/events")}
+           // onClick={() => console.log("Clicked")}
           >
             📅 View All Events
           </button>
