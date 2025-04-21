@@ -23,35 +23,31 @@ export const registerForEvent = async (req, res) => {
 
     await Registration.create({ eventId, userId });
 
-    // const reg = new Registration({
-    //   event: eventId,
-    //   student: req.user.id,
-    //   qrCode,
-    // });
-
-
-    
+ 
     res.json({ message: "Successfully registered" });
   } catch (error) {
     res.status(500).json({ message: "Registration failed", error: error.message });
   }
 
-  //   await reg.save();
-  //   res.status(201).json({ message: 'Registered', qrCode });
-  // } catch (err) {
-  //   res.status(500).json({ error: 'Registration failed' });
-  // }
 };
-
 export const getUserRegistrations = async (req, res) => {
   try {
-    const registration = await Registration.find({ userId: req.user.id }).populate('eventId');
+    const registrations = await Registration.find({ userId: req.user.id }).populate('eventId');
 
-    console.log("Registrations:", registration);
+    if (!registrations || registrations.length === 0) {
+      return res.status(200).json([]); // Return empty array if no registrations
+    }
 
-    
+    registrations.forEach((reg) => {
+      console.log("Event ID:", reg.eventId); // Log each eventId
+    });
+
+    console.log("Registrations:", registrations);
+    res.status(200).json(registrations);
 
   } catch (err) {
+    console.error("Error fetching registrations:", err);
     res.status(500).json({ error: 'Failed to fetch registrations' });
   }
 };
+
